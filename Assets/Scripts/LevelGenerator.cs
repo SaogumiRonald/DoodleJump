@@ -4,20 +4,22 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour {
-	public GameObject platformPrefab;
-	public int numberOfPlatforms = 200;
-	public float levelWidth = 3f;
-	public float minY = 0.2f;
-	public float maxY = 1.5f;
+    [SerializeField] private GameObject _platformPrefab;
+    [SerializeField] private GameObject _deadZone;
+    [SerializeField] private int _numberOfPlatforms;
+    [SerializeField] private float _minX;
+	[SerializeField] private float _maxX;
+    [SerializeField] private float _minY;
+	[SerializeField] private float _maxY;
 
     void Start() {
         Vector3 SpawnerPosition = new Vector3();
 
-        for (int i = 0; i < 10; i++) {
-            SpawnerPosition.x = UnityEngine.Random.Range(-1.5f, 1.5f);
-            SpawnerPosition.y += UnityEngine.Random.Range(1.5f, 1.5f);
+        for (int i = 0; i < _numberOfPlatforms; i++) {
+            SpawnerPosition.x = UnityEngine.Random.Range(_minX, _maxX);
+            SpawnerPosition.y += UnityEngine.Random.Range(_minY, _maxY);
 
-            Instantiate(platformPrefab, SpawnerPosition, Quaternion.identity);
+            Instantiate(_platformPrefab, SpawnerPosition, Quaternion.identity);
         }
     }
 }

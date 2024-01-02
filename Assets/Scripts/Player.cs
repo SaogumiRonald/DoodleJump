@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 public class Player : MonoBehaviour {
     public static Player instance;
     private float _horizontal;
-    private float _moveSpeed;
-    public Rigidbody2D rb;
+    [SerializeField] private float _moveSpeed;
+    [SerializeField] private Rigidbody2D _rb;
 
     void Start() {
         if (instance == null) {
             instance = this;
         }
 
-        rb = GetComponent<Rigidbody2D>();
+        _rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate() {
@@ -28,6 +28,10 @@ public class Player : MonoBehaviour {
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
         }
 
-        rb.velocity = new Vector2(Input.acceleration.x * _moveSpeed, rb.velocity.y);
+        _rb.velocity = new Vector2(Input.acceleration.x * _moveSpeed, _rb.velocity.y);
+
+        float horizontalInput = Input.GetAxis("Horizontal");
+        Vector2 moveDirection = new Vector2(horizontalInput, 0);
+        _rb.velocity = new Vector2(moveDirection.x * _moveSpeed, _rb.velocity.y);
     }
 }

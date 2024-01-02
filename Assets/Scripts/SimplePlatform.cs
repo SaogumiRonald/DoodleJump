@@ -16,11 +16,10 @@ public class SimplePlatform : MonoBehaviour {
 			}
 		}
     }
-    
     void Update() {
         if (transform.position.y < _deadZone.position.y) {
-            float RandX = UnityEngine.Random.Range(-1.7f, 1.7f);
-            float RandY = UnityEngine.Random.Range(transform.position.y + 10, transform.position.y + 12);
+            float RandX = UnityEngine.Random.Range(-1.5f, 1.5f);
+            float RandY = UnityEngine.Random.Range(transform.position.y + 8, transform.position.y + 10);
 
             transform.position = new Vector3(RandX, RandY, 0);
         }
