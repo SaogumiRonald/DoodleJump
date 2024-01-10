@@ -31,6 +31,11 @@ public class Player : MonoBehaviour {
         _rb.velocity = new Vector2(Input.acceleration.x * _moveSpeed, _rb.velocity.y);
 
         float horizontalInput = Input.GetAxis("Horizontal");
+        if (horizontalInput < 0) {
+            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+        } else {
+            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+        }
         Vector2 moveDirection = new Vector2(horizontalInput, 0);
         _rb.velocity = new Vector2(moveDirection.x * _moveSpeed, _rb.velocity.y);
     }
