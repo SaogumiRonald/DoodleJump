@@ -3,18 +3,20 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class MovingPlatform : MonoBehaviour {
-    public float moveSpeed = 2f;
+    [SerializeField] private float _moveSpeed = 2f;
     private bool moveRight = true;
-    public float jumpForce = 10f;
-    [SerializeField] public Transform _deadZone;
+    [SerializeField] private float _jumpForce = 10f;
+    [SerializeField] private Transform _deadZone;
+    [SerializeField] private AudioSource _jumpSound;
 
     void OnCollisionEnter2D(Collision2D collision) {
         if (collision.relativeVelocity.y <= 0f) {
             Rigidbody2D rb = collision.collider.GetComponent<Rigidbody2D>();
             if (rb != null) {
                 Vector2 velocity = rb.velocity;
-                velocity.y = jumpForce;
+                velocity.y = _jumpForce;
                 rb.velocity = velocity;
+                _jumpSound.Play();
             }
         }
     }
@@ -34,9 +36,9 @@ public class MovingPlatform : MonoBehaviour {
         Vector3 newPosition = transform.position;
 
         if (moveRight) {
-            newPosition.x += moveSpeed * Time.deltaTime;
+            newPosition.x += _moveSpeed * Time.deltaTime;
         } else {
-            newPosition.x -= moveSpeed * Time.deltaTime;
+            newPosition.x -= _moveSpeed * Time.deltaTime;
         }
 
         if (newPosition.x >= 1.7f) {

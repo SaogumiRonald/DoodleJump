@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class SimplePlatform : MonoBehaviour {
-    public float jumpForce = 10f;
-    [SerializeField] public Transform _deadZone;
+    [SerializeField] private float _jumpForce = 10f;
+    [SerializeField] private Transform _deadZone;
+    [SerializeField] private AudioSource _jumpSound;
 
-	void OnCollisionEnter2D(Collision2D collision) {
+    void OnCollisionEnter2D(Collision2D collision) {
 		if (collision.relativeVelocity.y <= 0f) {
 			Rigidbody2D rb = collision.collider.GetComponent<Rigidbody2D>();
 			if (rb != null){
 				Vector2 velocity = rb.velocity;
-				velocity.y = jumpForce;
+				velocity.y = _jumpForce;
 				rb.velocity = velocity;
-			}
+                _jumpSound.Play();
+            }
 		}
     }
     
